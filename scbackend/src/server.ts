@@ -26,6 +26,26 @@ app.post("/verify-signal", async (req, res) => {
 });
 
 /**
+ * GET /verify-signal
+ * Provides an example curl command for testing the POST endpoint
+ */
+app.get("/verify-signal", (req, res) => {
+  const exampleCurl = `To test this endpoint, open another terminal and run:
+
+curl -X POST http://localhost:3000/verify-signal \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "publicKey": "abc123",
+    "data": "hello world",
+    "signature": "valid"
+  }'
+
+Replace 'localhost:3000' with other hosted address if it's running elsewhere.
+`;
+  res.type("text").send(exampleCurl);
+});
+
+/**
  * GET /random
  * Returns a cryptographically secure random number
  */
