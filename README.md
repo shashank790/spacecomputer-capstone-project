@@ -84,17 +84,17 @@ This SDK securely connects to SpaceComputer’s global randomness network using 
 ---
 
 # Concept of what needs to be done (check with mentors)
-[Raspberry Pi Device(s)]
+1. [Raspberry Pi Device(s)]
     → emits (publicKey, data, signature)
     → sends payload via REST request
-        ↓
-[Backend Server (e.g., hosted on Render)]
+        
+2. [Backend Server (e.g., hosted on Render)]
     → /verify-signal endpoint
         → verifies signature authenticity using verifySignature()
     → /random endpoint
         → fetches cosmic entropy via Orbitport SDK (cTRNG)
-        ↓
-[Frontend / Dashboard]
+        
+3. [Frontend / Dashboard]
     → displays:
         ✅ Verification status
         ✅ Random cosmic values
