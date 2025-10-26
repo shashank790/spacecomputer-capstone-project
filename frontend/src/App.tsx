@@ -53,7 +53,8 @@ export default function App() {
       setErr(""); setVerified(null);
       if (!navigator.bluetooth) throw new Error("Web Bluetooth not supported");
       const device = await navigator.bluetooth.requestDevice({
-        filters: [{ services: [SERVICE_UUID] }]
+        acceptAllDevices: true,
+        // filters: [{ services: [SERVICE_UUID] }]
       });
       const server = await device.gatt!.connect();
       const svc = await server.getPrimaryService(SERVICE_UUID);
