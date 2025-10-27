@@ -1,47 +1,24 @@
-# Backend Overview
+# Overview
 
-Our backend is a TypeScript + Express server that handles cryptographic verification, Proof of Presence (PoP) validation, and random number generation. It’s structured into modular folders: routes/ for API endpoints (GET /random returns mock cTRNG data, POST /verify-signal verifies PoP signals), services/ for core cryptographic logic (cryptoService, commitReveal), and db/ for connection setup. This backend enables secure PoP verification and forms the foundation for the client SDK and frontend integration.
+Running at: https://spacecomputer-backend.onrender.com/
 
-Our instance is running at https://spacecomputer-backend.onrender.com/ so you can use this URL to access our endpoints for better convenience than running on http://localhost:3000/. Instructions below detail usage in http://localhost:3000/ but it's replacable with https://spacecomputer-backend.onrender.com/.
+Available Endpoints:
 
-Accessible endpoints:
-GET /random: https://spacecomputer-backend.onrender.com/random
-GET /verify-signal: https://spacecomputer-backend.onrender.com/verify-signal
-POST /verify-signal: has to be done manually via terminal (using curl)
+🔹 Verification:
+  • POST /verify-signal          → Verify a beacon signal signature
+  • GET  /verify-signal           → View interactive verification form & example curl
 
----
+🔹 Randomness:
+  • GET  /random/cosmic           → Fetch true cosmic entropy from Orbitport
+  • GET  /random/local            → Generate local cryptographic randomness (fallback)
 
-## 🚀 Setup & Run
+🔹 Admin:
+  • GET  /admin/list              → View all registered beacons in table format
+  • POST /admin/register          → Register a new beacon (for verification tracking)
+  • POST /admin/edit              → Edit an existing beacon’s name
+  • POST /admin/delete            → Delete a beacon
 
-1. Clone repo and navigate to the backend folder: cd scbackend
-
-2. Install dependencies: npm install
-
-3. Run server: npm run dev
-
-4. Open browser and visit (it will say the backend is running): http://localhost:3000/
-
-
-## 🔐 Endpoints
-
-1. GET /random: Generates a 32-byte cryptographically secure random value.
-Test via curl: curl http://localhost:3000/random
-
-2. POST /verify-signal: Verifies a signed beacon payload using a public key, data, and signature.
-Example curl command:
-   curl -X POST http://localhost:3000/verify-signal \
-     -H "Content-Type: application/json" \
-     -d '{
-       "publicKey": "abc123",
-       "data": "hello world",
-       "signature": "valid"
-     }'
-
-Example response: { "verified": true }
-If any required field is missing: { "error": "Missing required fields" }
-
-3. GET /verify-signal: You can also visit http://localhost:3000/verify-signal to see an example curl command displayed in your browser.
-
+All endpoints return JSON unless noted otherwise.
 
 ### ⚙️ Using the SDK
 
