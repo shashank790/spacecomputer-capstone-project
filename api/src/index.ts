@@ -10,7 +10,7 @@ import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
 const app = Fastify();
-await app.register(cors, { origin: ["https://localhost:5173", "http://localhost:5173"] });
+await app.register(cors, { origin: true });
 
 const ajv = new Ajv({ strict: false, allErrors: true });
 addFormats(ajv);
