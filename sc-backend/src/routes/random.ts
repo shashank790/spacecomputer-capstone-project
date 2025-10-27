@@ -1,19 +1,21 @@
 // src/routes/random.ts
 import express from "express";
-import crypto from "crypto";
 import { getTrueRandom } from "../services/cryptoService.js";
+import crypto from "crypto";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+// Local fallback randomness
+router.get("/local", (req, res) => {
   const randomBytes = crypto.randomBytes(32).toString("hex");
-  res.json({ random: randomBytes });
+  res.json({ source: "local", random: randomBytes });
 });
 
-router.get("/random", async (req, res) => {
+// Cosmic randomness via OrbitPort SDK
+router.get("/cosmic", async (req, res) => {
   try {
     const randomValue = await getTrueRandom();
-    res.json({ random: randomValue });
+    res.json({ source: "cosmic", random: randomValue });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch cosmic randomness" });
   }
